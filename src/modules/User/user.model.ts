@@ -3,7 +3,6 @@ import  bcrypt  from "bcrypt";
 import { Schema, model } from 'mongoose';
 import config from "../../config";
 
-// Define the User schema
 const userSchema = new Schema<TUser>({
   name: {
     type: String,

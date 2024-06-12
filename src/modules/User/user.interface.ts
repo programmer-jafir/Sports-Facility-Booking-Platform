@@ -6,3 +6,8 @@ export interface TUser {
     role: 'admin' | 'user';
     address: string;
   }
+
+export type TLoginUser = {
+  id: string;
+  password: string;
+}

@@ -6,32 +6,32 @@ import config from "../../config";
 const userSchema = new Schema<TUser>({
   name: {
     type: String,
-    required: true
+    required: [true, "Name is required"]
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Email is required"],
     unique: true,
     match: [/.+\@.+\..+/, 'Please fill a valid email address']
   },
   password: {
     type: String,
-    required: true
+    required: [true, "Password is required"]
   },
   phone: {
     type: String,
-    required: true,
+    required: [true, "Phone number is required"],
     match: [/^\d{10,15}$/, 'Please fill a valid phone number']
   },
   role: {
     type: String,
     enum: ['admin', 'user'],
-    required: true,
+    required: [true, "Role is required"],
     default: 'user'
   },
   address: {
     type: String,
-    required: true
+    required: [true, "Address is required"]
   }
 });
 

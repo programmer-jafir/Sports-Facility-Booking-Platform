@@ -12,11 +12,7 @@ import { handleValidationError } from "./handelValidationError";
 import handleCastError from "./handelCastError";
 import handleDuplicateError from "./handelDuplicateError";
 
-const globalErrorHandeller: ErrorRequestHandler = (err,
-   req,
-    res,
-     next
-    )=>
+const globalErrorHandeller: ErrorRequestHandler = (err, req, res, next )=>
     {
     
     //  setting default values
@@ -61,7 +57,6 @@ const globalErrorHandeller: ErrorRequestHandler = (err,
         }];
       }
       else if(err instanceof Error){
-        statusCode = err?.statusCode;
         message = err?.message;
         errorSources = [{
           path: '',

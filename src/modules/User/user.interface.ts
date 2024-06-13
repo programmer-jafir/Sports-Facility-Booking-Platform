@@ -2,6 +2,7 @@ import { Model } from "mongoose";
 import { USER_ROLE } from "./user.constant";
 
 export interface TUser {
+    toObject(): { [x: string]: any; password: any; };
     name: string;
     email: string;
     password: string; 

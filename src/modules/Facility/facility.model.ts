@@ -1,9 +1,8 @@
 import { Schema, model } from 'mongoose';
 import { TFacility } from './facility.interface';
 
-// Define the Facility schema
 const facilitySchema = new Schema<TFacility>({
-  name: {
+name: {
     type: String,
     required: true
   },
@@ -26,6 +25,6 @@ const facilitySchema = new Schema<TFacility>({
   }
 });
 
-// Create the Facility model
+
 export const Facility = model<TFacility>('Facility', facilitySchema);
 

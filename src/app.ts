@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import notFound from './middlwares/notFound';
 import router from './routes';
 import cors from 'cors';
+import globalErrorHandeller from './middlwares/globalErrorhandeler';
 
 
 const app = express();
@@ -17,6 +18,8 @@ app.get('/', (req:Request, res: Response) => {
  res.send('Hello World!')
 
 })
+
+app.use(globalErrorHandeller)
 
 //Not FOUND
 app.use(notFound)

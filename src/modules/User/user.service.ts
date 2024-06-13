@@ -31,10 +31,13 @@ const loginUser = async (payLoad: TLoginUser) =>{
         userEmail: user.email,
         role: user.role,
     }
+    const { password: _, ...userWithoutPassword } = user.toObject();
+
     const accessToken = jwt.sign(jwtPayload, config.jwt_access_secret as string, { expiresIn: '10d' });
       
     return{
-        accessToken, 
+        accessToken,
+        userWithoutPassword
     };
 }
 

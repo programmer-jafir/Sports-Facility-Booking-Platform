@@ -19,32 +19,32 @@ const config_1 = __importDefault(require("../../config"));
 const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
-        required: true
+        required: [true, "Name is required"]
     },
     email: {
         type: String,
-        required: true,
+        required: [true, "Email is required"],
         unique: true,
         match: [/.+\@.+\..+/, 'Please fill a valid email address']
     },
     password: {
         type: String,
-        required: true
+        required: [true, "Password is required"],
     },
     phone: {
         type: String,
-        required: true,
+        required: [true, "Phone number is required"],
         match: [/^\d{10,15}$/, 'Please fill a valid phone number']
     },
     role: {
         type: String,
         enum: ['admin', 'user'],
-        required: true,
+        required: [true, "Role is required"],
         default: 'user'
     },
     address: {
         type: String,
-        required: true
+        required: [true, "Address is required"]
     }
 });
 userSchema.pre('save', function (next) {
@@ -62,4 +62,14 @@ userSchema.post('save', function (doc, next) {
     doc.password = '';
     next();
 });
+userSchema.statics.isUserExistsByCustomEmail = function (email) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield exports.User.findOne({ email });
+    });
+};
+userSchema.statics.isPasswordMatched = function (planeTextPassword, hashTextPassword) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield bcrypt_1.default.compare(planeTextPassword, hashTextPassword);
+    });
+};
 exports.User = (0, mongoose_1.model)('User', userSchema);

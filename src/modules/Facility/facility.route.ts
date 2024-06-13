@@ -15,5 +15,12 @@ router.post(
     ),
     FacultyControllers.createFacility
 );
-
+router.put(
+    '/:id',
+    auth(USER_ROLE.admin),
+    validateRequest(
+        FacilityValidations.updateFacilityValidationSchema
+    ),
+    FacultyControllers.updateFacility
+)
 export const FacilityRoutes = router;

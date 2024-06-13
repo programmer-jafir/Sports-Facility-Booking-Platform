@@ -15,6 +15,10 @@ router.post(
     ),
     FacultyControllers.createFacility
 );
+router.get(
+    '/',
+    FacultyControllers.getAllFacility
+);
 router.put(
     '/:id',
     auth(USER_ROLE.admin),
@@ -22,11 +26,11 @@ router.put(
         FacilityValidations.updateFacilityValidationSchema
     ),
     FacultyControllers.updateFacility
-)
+);
 
 router.delete(
     '/:id',
     auth(USER_ROLE.admin),
     FacultyControllers.deleteFacility
-)
+);
 export const FacilityRoutes = router;

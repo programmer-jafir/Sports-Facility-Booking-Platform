@@ -8,6 +8,10 @@ const createFacilityIntoDB = async (payLoad: TFacility) =>{
     const result = await Facility.create(payLoad);
     return result;
 };
+const getAllFacilityIntoDB = async () =>{
+    const result = await Facility.find();
+    return result;
+};
 const updateFacilityIntoDB = async (id: string,
     payLoad: Partial<TFacility>,
 ) =>{
@@ -46,5 +50,6 @@ const deleteFacilityFromDB = async (id: string) => {
 export const FacilityServices = {
     createFacilityIntoDB,
     updateFacilityIntoDB,
-    deleteFacilityFromDB
+    deleteFacilityFromDB,
+    getAllFacilityIntoDB,
 }

@@ -17,6 +17,7 @@ const userSchema = new Schema<TUser, UserModel>({
   password: {
     type: String,
     required: [true, "Password is required"],
+    select: 0
   },
   phone: {
     type: String,
@@ -32,7 +33,7 @@ const userSchema = new Schema<TUser, UserModel>({
   address: {
     type: String,
     required: [true, "Address is required"]
-  }
+  },
 });
 
 userSchema.pre('save',async function(next){

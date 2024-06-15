@@ -3,6 +3,7 @@ import { USER_ROLE } from "./user.constant";
 
 export interface TUser {
     toObject(): { [x: string]: any; password: any; };
+    _id?:string;
     name: string;
     email: string;
     password: string; 

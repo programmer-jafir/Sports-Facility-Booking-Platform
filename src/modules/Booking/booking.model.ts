@@ -1,10 +1,11 @@
 import { Schema, model } from 'mongoose';
 import { TBooking } from './booking.interface';
+import { string } from 'zod';
 
 
 const bookingSchema = new Schema<TBooking>({
   date: {
-    type: Date,
+    type: String,
     required: true
   },
   startTime: {
@@ -18,7 +19,8 @@ const bookingSchema = new Schema<TBooking>({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
-    required: true
+    required: false,
+    unique:true,
   },
   facility: {
     type: Schema.Types.ObjectId,
@@ -27,14 +29,14 @@ const bookingSchema = new Schema<TBooking>({
   },
   payableAmount: {
     type: Number,
-    required: true,
+    required: false,
     min: 0
   },
   isBooked: {
     type: String,
     enum: ['confirmed', 'unconfirmed', 'canceled'],
     required: true,
-    default: 'unconfirmed'
+    default: 'confirmed'
   }
 });
 

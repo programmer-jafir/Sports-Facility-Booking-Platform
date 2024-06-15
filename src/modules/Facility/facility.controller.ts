@@ -18,12 +18,9 @@ const createFacility = catchAsync(async(req,res)=>{
     })
 })
 const getAllFacility = catchAsync(async(req,res)=>{
-    // creating facility
+
     const result  = await FacilityServices.getAllFacilityIntoDB();
-    // extract _id
-    // const { _id, ...facilityWithoutId } = facility.toObject();
-    // _id with facility
-    // const result = { _id: _id, ...facilityWithoutId };
+    
     sendResponse(res,{
         success: true,
         statusCode: httpStatus.OK,

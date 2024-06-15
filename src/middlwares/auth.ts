@@ -25,11 +25,15 @@ const auth = (...requiredRoles : TUserRole[])=>{
             }
             const role = (decoded as JwtPayload).role
     if( requiredRoles && !requiredRoles.includes(role)){
-
-      throw new AppError(httpStatus.UNAUTHORIZED,'You are not authorized')
+      return res.status(httpStatus.NOT_FOUND).json({
+        success: false,
+        statusCode: httpStatus.NOT_FOUND,
+        message: 'You have no access to this route',
+    })
     }
     // decoded undefined
     req.user = decoded as JwtPayload;
+    req.userId = (decoded as JwtPayload)._id;
   next();
   });
     });

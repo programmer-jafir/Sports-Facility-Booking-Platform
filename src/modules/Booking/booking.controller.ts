@@ -127,11 +127,11 @@ const AvailableBooking = catchAsync(async (req, res) => {
       endTime: slot.endTime.format('HH:mm')
     }));
 
-    res.json({
+    sendResponse(res, {
       success: true,
-      statusCode: 200,
+      statusCode: httpStatus.OK,
       message: 'Availability checked successfully',
-      data: formattedSlots
+      data: formattedSlots,
     });
   } catch (error) {
     res.json({

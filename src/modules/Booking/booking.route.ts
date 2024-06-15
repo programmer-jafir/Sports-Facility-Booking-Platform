@@ -20,5 +20,15 @@ router.get(
     auth(USER_ROLE.admin),
     BookingControllers.getAllBookingOfAdmin
 );
+router.get(
+    '/user',
+    auth(USER_ROLE.user),
+    BookingControllers.getAllBookingOfUser
+);
+router.delete(
+    '/:id',
+    auth(USER_ROLE.user),
+    BookingControllers.deleteBooking
+);
 
 export const BookingRoutes = router;

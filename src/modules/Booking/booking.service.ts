@@ -30,7 +30,7 @@ const differenceInMinutes = endMinutes - startMinutes;
 // calculate minutes to hours
 const differenceInHours = differenceInMinutes / 60;
 //calculate money
-const Amount =  differenceInHours* pricePerHour;
+const Amount =  Math.abs(differenceInHours* pricePerHour);
 
 payLoad.payableAmount =Amount
 

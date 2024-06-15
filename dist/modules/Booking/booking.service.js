@@ -72,5 +72,5 @@ exports.BookingServices = {
     createBookingIntoDB,
     getAllBookingOfAdminIntoDB,
     getAllBookingOfUserIntoDB,
-    deleteBookingFromDB
+    deleteBookingFromDB,
 };

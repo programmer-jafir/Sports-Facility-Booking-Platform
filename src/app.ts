@@ -14,6 +14,7 @@ app.use(cors());
 
 //application routes
 app.use('/api/', router);
+app.use('/api/check-availability', BookingControllers.AvailableBooking);
 
 app.get('/', (req:Request, res: Response) => {
  res.send('Hello World!')

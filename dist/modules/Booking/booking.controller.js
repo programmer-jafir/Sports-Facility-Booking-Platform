@@ -18,6 +18,7 @@ const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const booking_service_1 = require("./booking.service");
 const booking_model_1 = require("./booking.model");
+const moment_1 = __importDefault(require("moment"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const facility_model_1 = require("../Facility/facility.model");
 const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -85,6 +86,49 @@ const deleteBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
     });
 }));
 const AvailableBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const date = req.query.date || (0, moment_1.default)().format('YYYY-MM-DD');
+        const bookings = yield booking_model_1.Booking.find({ date }).exec();
+        const dayStart = (0, moment_1.default)(date + ' 00:00', 'YYYY-MM-DD HH:mm');
+        const dayEnd = (0, moment_1.default)(date + ' 23:59', 'YYYY-MM-DD HH:mm');
+        let availableSlots = [{ startTime: dayStart, endTime: dayEnd }];
+        bookings.forEach(booking => {
+            const bookingStart = (0, moment_1.default)(date + ' ' + booking.startTime, 'YYYY-MM-DD HH:mm');
+            const bookingEnd = (0, moment_1.default)(date + ' ' + booking.endTime, 'YYYY-MM-DD HH:mm');
+            availableSlots = availableSlots.flatMap(slot => {
+                if (bookingStart.isSameOrAfter(slot.endTime) || bookingEnd.isSameOrBefore(slot.startTime)) {
+                    return [slot];
+                }
+                const newSlots = [];
+                if (bookingStart.isAfter(slot.startTime)) {
+                    newSlots.push({ startTime: slot.startTime, endTime: bookingStart });
+                }
+                if (bookingEnd.isBefore(slot.endTime)) {
+                    newSlots.push({ startTime: bookingEnd, endTime: slot.endTime });
+                }
+                return newSlots;
+            });
+        });
+        // formating the available slots
+        const formattedSlots = availableSlots.map(slot => ({
+            startTime: slot.startTime.format('HH:mm'),
+            endTime: slot.endTime.format('HH:mm')
+        }));
+        res.json({
+            success: true,
+            statusCode: 200,
+            message: 'Availability checked successfully',
+            data: formattedSlots
+        });
+    }
+    catch (error) {
+        res.json({
+            success: false,
+            statusCode: 500,
+            message: 'An error occurred while checking availability',
+            data: []
+        });
+    }
 }));
 exports.BookingControllers = {
     createBooking,

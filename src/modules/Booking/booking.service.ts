@@ -4,6 +4,7 @@ import { TBooking } from "./booking.interface";
 import { Booking } from "./booking.model";
 import mongoose from "mongoose";
 import { Facility } from "../Facility/facility.model";
+import QueryBuilder from "../../bilder/QueryBuilder";
 
 
 const createBookingIntoDB = async ( payLoad: TBooking) =>{
@@ -77,5 +78,5 @@ export const BookingServices = {
     createBookingIntoDB,
     getAllBookingOfAdminIntoDB,
     getAllBookingOfUserIntoDB,
-    deleteBookingFromDB
+    deleteBookingFromDB,
 }

@@ -45,14 +45,14 @@ const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         startTime,
         endTime,
         user: userId,
-        payableAmount: 90,
+        payableAmount: req.body.Amount,
         isBooked: 'confirmed',
     });
     const result = yield booking_service_1.BookingServices.createBookingIntoDB(newBooking);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
-        message: "Facility added successfully",
+        message: "Booking created successfully",
         data: result
     });
 }));

@@ -17,7 +17,28 @@ const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const booking_model_1 = require("./booking.model");
 const mongoose_1 = __importDefault(require("mongoose"));
+const facility_model_1 = require("../Facility/facility.model");
 const createBookingIntoDB = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
+    const FacilityNum = yield facility_model_1.Facility.findById(payLoad.facility).select('pricePerHour');
+    // facility pricePerHour
+    const pricePerHour = Number(FacilityNum.pricePerHour);
+    // Define the start and end times
+    const startTime = payLoad.startTime;
+    const endTime = payLoad.endTime;
+    // Function to convert time string to minutes since midnight
+    function timeToMinutes(time) {
+        const [hours, minutes] = time.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
+    // calculate the difference in minutes
+    const startMinutes = timeToMinutes(startTime);
+    const endMinutes = timeToMinutes(endTime);
+    const differenceInMinutes = endMinutes - startMinutes;
+    // calculate minutes to hours
+    const differenceInHours = differenceInMinutes / 60;
+    //calculate money
+    const Amount = differenceInHours * pricePerHour;
+    payLoad.payableAmount = Amount;
     const result = yield booking_model_1.Booking.create(payLoad);
     return result;
 });

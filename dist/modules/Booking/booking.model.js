@@ -58,7 +58,7 @@ const bookingSchema = new mongoose_1.Schema({
         type: String,
         enum: ['confirmed', 'unconfirmed', 'canceled'],
         required: true,
-        default: 'confirmed'
+        default: 'unconfirmed'
     }
 });
 exports.SlotBooking = (0, mongoose_1.model)('SlotBooking', new mongoose_1.default.Schema({

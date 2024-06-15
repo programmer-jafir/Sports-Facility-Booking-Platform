@@ -8,69 +8,69 @@ import moment from "moment";
 import AppError from "../../errors/AppError";
 import { Facility } from "../Facility/facility.model";
 
-const createBooking = catchAsync(async(req,res)=>{
+const createBooking = catchAsync(async (req, res) => {
 
-        const { facility, date, startTime, endTime, user } = req.body;
-    const userId = req.user.id;
+  const { facility, date, startTime, endTime, user } = req.body;
+  const userId = req.user.id;
 
-    const facilityExists = await Facility.findById(facility);
-      if (!facilityExists){
-        throw new AppError(httpStatus.NOT_FOUND,'Facility not found');
-      }
-      const overlappingBooking = await Booking.findOne({
-        facility,
-        date,
-        $or: [
-          { startTime: { $lt: endTime, $gt: startTime } },
-          { endTime: { $lt: endTime, $gt: startTime } },
-          { startTime: { $lte: startTime }, endTime: { $gte: endTime } },
-        ],
-      });
+  const facilityExists = await Facility.findById(facility);
+  if (!facilityExists) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Facility not found');
+  }
+  const overlappingBooking = await Booking.findOne({
+    facility,
+    date,
+    $or: [
+      { startTime: { $lt: endTime, $gt: startTime } },
+      { endTime: { $lt: endTime, $gt: startTime } },
+      { startTime: { $lte: startTime }, endTime: { $gte: endTime } },
+    ],
+  });
+  
+  if (overlappingBooking) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Facility is unavailable during the requested time slot')
+  }
+  
+  const newBooking = new Booking({
+    facility,
+    date,
+    startTime,
+    endTime,
+    user: userId,
+    payableAmount: req.body.Amount,
+    isBooked: 'confirmed',
+  });
 
-      if (overlappingBooking) {
-        throw new AppError(httpStatus.NOT_FOUND,'Facility is unavailable during the requested time slot')
-      }
-
-      const newBooking = new Booking({
-        facility,
-        date,
-        startTime,
-        endTime,
-        user: userId,
-        payableAmount: 90, 
-        isBooked: 'confirmed',
-      });
-
-    const result  = await BookingServices.createBookingIntoDB(newBooking);
-    sendResponse(res,{
-        success: true,
-        statusCode: httpStatus.OK,
-        message: "Booking created successfully",
-        data: result
-    })
+  const result = await BookingServices.createBookingIntoDB(newBooking);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Booking created successfully",
+    data: result
+  })
 
 });
 
-const getAllBookingOfAdmin = catchAsync(async(req,res)=>{
+const getAllBookingOfAdmin = catchAsync(async (req, res) => {
 
-  const result  = await BookingServices.getAllBookingOfAdminIntoDB();
-  
-  sendResponse(res,{
-      success: true,
-      statusCode: httpStatus.OK,
-      message: "Bookings retrieved successfully",
-      data: result
+  const result = await BookingServices.getAllBookingOfAdminIntoDB();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Bookings retrieved successfully",
+    data: result
   })
 })
-const getAllBookingOfUser = catchAsync(async(req,res)=>{
+const getAllBookingOfUser = catchAsync(async (req, res) => {
 
-  const result  = await BookingServices.getAllBookingOfUserIntoDB();
-  
-  sendResponse(res,{
-      success: true,
-      statusCode: httpStatus.OK,
-      message: "Bookings retrieved successfully",
-      data: result
+  const result = await BookingServices.getAllBookingOfUserIntoDB();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Bookings retrieved successfully",
+    data: result
   })
 });
 
@@ -86,15 +86,15 @@ const deleteBooking = catchAsync(async (req, res) => {
   });
 });
 
-const AvailableBooking = catchAsync(async(req,res)=>{
+const AvailableBooking = catchAsync(async (req, res) => {
 
 
 });
 
 export const BookingControllers = {
-    createBooking,
-    getAllBookingOfAdmin,
-    getAllBookingOfUser,
-    deleteBooking,
-    AvailableBooking
+  createBooking,
+  getAllBookingOfAdmin,
+  getAllBookingOfUser,
+  deleteBooking,
+  AvailableBooking
 }

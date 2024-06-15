@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 
 export type TBooking ={
-    date: string;
+    date: String;
     startTime: string;
     endTime: string;
     user?: Types.ObjectId; 

@@ -42,6 +42,15 @@ const createFacility = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         data: result
     });
 }));
+const getAllFacility = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield facility_service_1.FacilityServices.getAllFacilityIntoDB();
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Facilities retrieved successfully",
+        data: result
+    });
+}));
 const updateFacility = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const result = yield facility_service_1.FacilityServices.updateFacilityIntoDB(id, req.body);
@@ -52,7 +61,19 @@ const updateFacility = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         data: result
     });
 }));
+const deleteFacility = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield facility_service_1.FacilityServices.deleteFacilityFromDB(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Facility deleted successfully',
+        data: result,
+    });
+}));
 exports.FacultyControllers = {
     createFacility,
+    getAllFacility,
     updateFacility,
+    deleteFacility,
 };

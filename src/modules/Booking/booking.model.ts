@@ -1,6 +1,5 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import { TBooking } from './booking.interface';
-import { string } from 'zod';
 
 
 const bookingSchema = new Schema<TBooking>({
@@ -39,6 +38,12 @@ const bookingSchema = new Schema<TBooking>({
     default: 'confirmed'
   }
 });
+
+export const SlotBooking = model('SlotBooking', new mongoose.Schema({
+  date: String,
+  startTime: String,
+  endTime: String
+}));
 
 // Create the Booking model
 export const Booking = model<TBooking>('Booking', bookingSchema);

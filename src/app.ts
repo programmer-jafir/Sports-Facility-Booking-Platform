@@ -3,6 +3,7 @@ import notFound from './middlwares/notFound';
 import router from './routes';
 import cors from 'cors';
 import globalErrorHandeller from './middlwares/globalErrorhandeler';
+import { BookingControllers } from './modules/Booking/booking.controller';
 
 
 const app = express();

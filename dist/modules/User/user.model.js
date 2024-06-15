@@ -30,6 +30,7 @@ const userSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: [true, "Password is required"],
+        select: 0
     },
     phone: {
         type: String,
@@ -45,7 +46,7 @@ const userSchema = new mongoose_1.Schema({
     address: {
         type: String,
         required: [true, "Address is required"]
-    }
+    },
 });
 userSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {

@@ -30,7 +30,6 @@
 
   
 
-## Main Requirements (50 Marks)
 
   
 
@@ -516,7 +515,6 @@ Authorization: Bearer JWT_TOKEN
 
   
 
-## Bonus Part (10 Marks):
 
 ### **1\. No Data Found:**
 

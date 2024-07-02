@@ -8,20 +8,24 @@ import { TUserRole } from "../modules/User/user.interface";
 
 const auth = (...requiredRoles : TUserRole[])=>{
     return catchAsync(async( req: Request, res: Response, next: NextFunction) =>{
-        
-         const token = req.headers.authorization;
+
+         const authorizationHeader = req.headers.authorization;
 
          // if the token is sent from the client
-         if(!token){
-            throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized')
-         }
+
+         if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+          throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+      }
+
+
+        const token = authorizationHeader.slice(7);
 
          // check if the token is valid
 
          jwt.verify(token, config.jwt_access_secret as string, function(err, decoded) {
             // err
             if(err){
-                throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+                throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorizediii');
             }
             const role = (decoded as JwtPayload).role
     if( requiredRoles && !requiredRoles.includes(role)){

@@ -19,16 +19,17 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
 const auth = (...requiredRoles) => {
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const token = req.headers.authorization;
+        const authorizationHeader = req.headers.authorization;
         // if the token is sent from the client
-        if (!token) {
+        if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You are not authorized');
         }
+        const token = authorizationHeader.slice(7);
         // check if the token is valid
         jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secret, function (err, decoded) {
             // err
             if (err) {
-                throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You are not authorized');
+                throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, 'You are not authorizediii');
             }
             const role = decoded.role;
             if (requiredRoles && !requiredRoles.includes(role)) {

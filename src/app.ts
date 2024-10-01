@@ -4,14 +4,14 @@ import router from './routes';
 import cors from 'cors';
 import globalErrorHandeller from './middlwares/globalErrorhandeler';
 import { BookingControllers } from './modules/Booking/booking.controller';
-
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
 //parsers
 app.use(express.json());
-app.use(cors());
-
+app.use(cors({origin: 'http://localhost:5173', credentials: true}));
+app.use(cookieParser())
 //application routes
 app.use('/api/', router);
 app.use('/api/check-availability', BookingControllers.AvailableBooking);

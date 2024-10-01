@@ -11,7 +11,7 @@ name: {
     required: true
   },
   pricePerHour: {
-    type: Number,
+    type: String,
     required: true,
     min: 0
   },
@@ -22,6 +22,10 @@ name: {
   isDeleted: {
     type: Boolean,
     default: false
+  },
+  img: {
+    type: String,
+    required: true
   }
 });
 

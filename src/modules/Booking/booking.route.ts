@@ -30,5 +30,7 @@ router.delete(
     auth(USER_ROLE.user),
     BookingControllers.deleteBooking
 );
+router.get("/available-booking", BookingControllers.AvailableBooking);
+
 
 export const BookingRoutes = router;

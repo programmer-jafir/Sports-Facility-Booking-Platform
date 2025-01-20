@@ -31,6 +31,7 @@ const loginUser = async (payLoad: TLoginUser) =>{
         id:user._id,
         userEmail: user.email,
         role: user.role,
+        name:user.name,
     }
     const { password: _, ...userWithoutPassword } = user.toObject();
 

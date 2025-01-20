@@ -6,7 +6,7 @@ export const createUserValidation = z.object({
         _id: z.string().optional(),
         name: z.string(),
         email: z.string().email(),
-        password: z.string().min(8),
+        password: z.string(),
         phone: z.string(),
         role: z.enum(['admin', 'user']),
         address: z.string(),

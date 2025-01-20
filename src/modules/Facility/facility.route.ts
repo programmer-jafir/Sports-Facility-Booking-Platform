@@ -19,6 +19,7 @@ router.get(
     '/',
     FacultyControllers.getAllFacility
 );
+router.get("/:id", FacultyControllers.getSingleFacility);
 router.put(
     '/:id',
     auth(USER_ROLE.admin),

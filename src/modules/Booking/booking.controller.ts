@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { BookingServices } from "./booking.service";
 import { Booking } from "./booking.model";
-import { TBooking } from "./booking.interface";
+// import { TBooking } from "./booking.interface";
 import moment from "moment";
 import AppError from "../../errors/AppError";
 import { Facility } from "../Facility/facility.model";
 
 const createBooking = catchAsync(async (req, res) => {
 
-  const { facility, date, startTime, endTime, user } = req.body;
+  const { facility, date, startTime, endTime } = req.body;
   const userId = req.user.id;
 
   const facilityExists = await Facility.findById(facility);
@@ -42,7 +43,7 @@ const createBooking = catchAsync(async (req, res) => {
     isBooked: 'confirmed',
   });
 
-  const result = await BookingServices.createBookingIntoDB(newBooking);
+  const result = await BookingServices.createBooking(newBooking);
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
@@ -51,6 +52,9 @@ const createBooking = catchAsync(async (req, res) => {
   })
 
 });
+
+
+
 
 const getAllBookingOfAdmin = catchAsync(async (req, res) => {
 
@@ -87,18 +91,18 @@ const deleteBooking = catchAsync(async (req, res) => {
   });
 });
 
-function generateAppointments(shop) {
-  let appointments = [];
-  let [hoursOp, minutesOp] = shop.opens.split(":"); // Extract hours and minutes from opening time
-  let [hoursCl, minutesCl] = shop.closes.split(":");
-  let timeRange = Number.parseInt(hoursCl) - Number.parseInt(hoursOp); // Calculate the range of hours
+function generateAppointments(shop: any) {
+  const appointments: any[] = [];
+  const [hoursOp ] = shop.opens.split(":"); // Extract hours and minutes from opening time
+  const [hoursCl ] = shop.closes.split(":");
+  const timeRange = Number.parseInt(hoursCl) - Number.parseInt(hoursOp); // Calculate the range of hours
 
   for (let i = 0; i < timeRange; i++) {
       const appHourStart = Number.parseInt(hoursOp) + i;
 
       // Check if the appointment slots are already booked
-      const firstHalfBooked = shop.appointments.some(a => a.start === `${appHourStart}:00`);
-      const secondHalfBooked = shop.appointments.some(a => a.start === `${appHourStart}:30`);
+      const firstHalfBooked = shop.appointments.some((a: { start: string; }) => a.start === `${appHourStart}:00`);
+      const secondHalfBooked = shop.appointments.some((a: { start: string; }) => a.start === `${appHourStart}:30`);
 
       // Add slots to appointments if not booked
       if (!firstHalfBooked) appointments.push(`${appHourStart}:00 - ${appHourStart}:30`);

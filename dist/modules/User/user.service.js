@@ -48,6 +48,7 @@ const loginUser = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
         id: user._id,
         userEmail: user.email,
         role: user.role,
+        name: user.name,
     };
     const _a = user.toObject(), { password: _ } = _a, userWithoutPassword = __rest(_a, ["password"]);
     const accessToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt_access_secret, { expiresIn: '10d' });

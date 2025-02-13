@@ -7,7 +7,7 @@ exports.createUserValidation = zod_1.z.object({
         _id: zod_1.z.string().optional(),
         name: zod_1.z.string(),
         email: zod_1.z.string().email(),
-        password: zod_1.z.string().min(8),
+        password: zod_1.z.string(),
         phone: zod_1.z.string(),
         role: zod_1.z.enum(['admin', 'user']),
         address: zod_1.z.string(),

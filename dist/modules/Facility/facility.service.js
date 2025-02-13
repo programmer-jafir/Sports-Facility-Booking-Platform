@@ -17,12 +17,32 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const facility_model_1 = require("./facility.model");
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const http_status_1 = __importDefault(require("http-status"));
+const QueryBuilder_1 = __importDefault(require("../../bilder/QueryBuilder"));
+const facility_constant_1 = require("./facility.constant");
 const createFacilityIntoDB = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield facility_model_1.Facility.create(payLoad);
     return result;
 });
-const getAllFacilityIntoDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield facility_model_1.Facility.find();
+// const getAllFacilityIntoDB = async () =>{
+//     const result = await Facility.find();
+//     return result;
+// };
+const getAllFacilityIntoDB = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const facilityQuery = new QueryBuilder_1.default(facility_model_1.Facility.find({ isDeleted: false }), query)
+        .search(facility_constant_1.FacilitySearchableFields)
+        .filter()
+        .sort()
+        .paginate()
+        .fields();
+    const result = yield facilityQuery.modelQuery; // execute the query
+    const meta = yield facilityQuery.countTotal(); // get total count for pagination
+    return {
+        meta,
+        result,
+    };
+});
+const getFacilityByIdIntoDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield facility_model_1.Facility.findById(id);
     return result;
 });
 const updateFacilityIntoDB = (id, payLoad) => __awaiter(void 0, void 0, void 0, function* () {
@@ -52,4 +72,5 @@ exports.FacilityServices = {
     updateFacilityIntoDB,
     deleteFacilityFromDB,
     getAllFacilityIntoDB,
+    getFacilityByIdIntoDB
 };

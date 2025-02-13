@@ -12,7 +12,7 @@ const facilitySchema = new mongoose_1.Schema({
         required: true
     },
     pricePerHour: {
-        type: Number,
+        type: String,
         required: true,
         min: 0
     },
@@ -23,6 +23,10 @@ const facilitySchema = new mongoose_1.Schema({
     isDeleted: {
         type: Boolean,
         default: false
+    },
+    img: {
+        type: String,
+        required: true
     }
 });
 exports.Facility = (0, mongoose_1.model)('Facility', facilitySchema);

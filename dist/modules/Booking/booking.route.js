@@ -15,4 +15,5 @@ router.post('/', (0, auth_1.default)(user_constant_1.USER_ROLE.user), (0, valida
 router.get('/', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), booking_controller_1.BookingControllers.getAllBookingOfAdmin);
 router.get('/user', (0, auth_1.default)(user_constant_1.USER_ROLE.user), booking_controller_1.BookingControllers.getAllBookingOfUser);
 router.delete('/:id', (0, auth_1.default)(user_constant_1.USER_ROLE.user), booking_controller_1.BookingControllers.deleteBooking);
+router.get("/available-booking", booking_controller_1.BookingControllers.AvailableBooking);
 exports.BookingRoutes = router;

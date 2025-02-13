@@ -13,11 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookingServices = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const booking_model_1 = require("./booking.model");
 const mongoose_1 = __importDefault(require("mongoose"));
 const facility_model_1 = require("../Facility/facility.model");
+// import QueryBuilder from "../../bilder/QueryBuilder";
 const createBookingIntoDB = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
     const FacilityNum = yield facility_model_1.Facility.findById(payLoad.facility).select('pricePerHour');
     // facility pricePerHour

@@ -15,6 +15,9 @@ router.post(
     ),
     BookingControllers.createBooking
 );
+router.get("/check-availability", BookingControllers.AvailableBooking);
+// router.post("/book", BookingControllers.createBooking);
+
 router.get(
     '/',
     auth(USER_ROLE.admin),

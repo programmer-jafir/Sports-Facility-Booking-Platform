@@ -13,6 +13,7 @@ const user_constant_1 = require("../User/user.constant");
 const router = express_1.default.Router();
 router.post('/', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), (0, validateRequest_1.default)(facility_validation_1.FacilityValidations.createFacilityValidationSchema), facility_controller_1.FacultyControllers.createFacility);
 router.get('/', facility_controller_1.FacultyControllers.getAllFacility);
+router.get("/:id", facility_controller_1.FacultyControllers.getSingleFacility);
 router.put('/:id', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), (0, validateRequest_1.default)(facility_validation_1.FacilityValidations.updateFacilityValidationSchema), facility_controller_1.FacultyControllers.updateFacility);
 router.delete('/:id', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), facility_controller_1.FacultyControllers.deleteFacility);
 exports.FacilityRoutes = router;

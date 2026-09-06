@@ -10,7 +10,7 @@ const app = express();
 
 //parsers
 app.use(express.json());
-app.use(cors({origin: 'https://assaginment-5.vercel.app/', credentials: true})); //
+app.use(cors({origin: 'https://assaginment-5.vercel.app', credentials: true})); // http://localhost:5173 
 app.use(cookieParser())
 //application routes
 app.use('/api/', router);

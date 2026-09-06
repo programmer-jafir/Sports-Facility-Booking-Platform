@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
@@ -13,6 +15,9 @@ const createBooking = catchAsync(async (req, res) => {
 
   const { facility, date, startTime, endTime } = req.body;
   const userId = req.user.id;
+  // const userPhone = req.user.phone;
+  // const userEmail = req.user.email;
+  // const userAddress = req.user.address;
 
   const facilityExists = await Facility.findById(facility);
   if (!facilityExists) {
@@ -39,9 +44,15 @@ const createBooking = catchAsync(async (req, res) => {
     startTime,
     endTime,
     user: userId,
+    // userPhone,
+    // userEmail,
+    // userAddress,
     payableAmount: req.body.Amount,
-    isBooked: 'confirmed',
+    isBooked: 'unconfirmed',  //confirmed
   });
+
+
+  // const { newBooking: booking, paymentUrl } = await BookingServices.createBooking(newBooking);
 
   const result = await BookingServices.createBooking(newBooking);
   sendResponse(res, {

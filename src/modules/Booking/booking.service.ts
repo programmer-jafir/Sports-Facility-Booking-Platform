@@ -5,6 +5,8 @@ import { TBooking } from "./booking.interface";
 import { Booking } from "./booking.model";
 import mongoose from "mongoose";
 import { Facility } from "../Facility/facility.model";
+// import { initiatePayment } from "../payment/payment.utils";
+// import { initiatePayment } from "../payment/payment.utils";
 // import QueryBuilder from "../../bilder/QueryBuilder";
 
 
@@ -67,7 +69,30 @@ const createBooking = async (payLoad: TBooking) => {
   const payableAmount = await calculatePayableAmount(payLoad);
   payLoad.payableAmount = payableAmount;
 
+  // const transactionId = `TXN-${Date.now()}`;
+
   const newBooking = await Booking.create(payLoad);
+
+  // const paymentSession = await initiatePayment({
+  //   ...payLoad,
+  //   user: payLoad.user, // Ensure user details are available
+  // });
+
+  // return { newBooking, paymentUrl: paymentSession.payment_url };
+  // await newBooking.save(),
+
+  // const paymentData= {
+  //   transactionId,
+  //   payableAmount,
+  //   customerName: user.name,
+  //   customerPhone: user.phone,
+  //   customerEmail: user.email,
+  //   customerAddress: user.address,
+  // }
+  
+  // payment 
+  //  const paymentSession = await initiatePayment(paymentData);
+  // console.log(paymentSession)
   return newBooking;
 };
     const getAllBookingOfAdminIntoDB = async () =>{

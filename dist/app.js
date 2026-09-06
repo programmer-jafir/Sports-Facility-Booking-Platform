@@ -13,7 +13,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
 //parsers
 app.use(express_1.default.json());
-app.use((0, cors_1.default)({ origin: 'http://localhost:5173', credentials: true })); //
+app.use((0, cors_1.default)({ origin: 'https://assaginment-5.vercel.app', credentials: true })); // http://localhost:5173 
 app.use((0, cookie_parser_1.default)());
 //application routes
 app.use('/api/', routes_1.default);

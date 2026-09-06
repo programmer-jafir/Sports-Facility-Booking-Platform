@@ -6,6 +6,9 @@ const createBookingValidationSchema = z.object({
       startTime: z.string().nonempty({ message: "Start time is required" }),
       endTime: z.string().nonempty({ message: "End time is required" }),
       user: z.string().regex(/^[0-9a-fA-F]{24}$/, { message: "Invalid user ID" }).optional(),
+      userAddress:z.string().optional(),
+      userPhone:z.string().optional(),
+      userEmail:z.string().optional(),
       facility: z.string().regex(/^[0-9a-fA-F]{24}$/, { message: "Invalid facility ID" }),
       payableAmount: z.number().min(0, { message: "Payable amount must be at least 0" }).optional(),
       isBooked: z.enum(['confirmed', 'unconfirmed', 'canceled']).default('unconfirmed').optional()

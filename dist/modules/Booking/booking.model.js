@@ -44,6 +44,18 @@ const bookingSchema = new mongoose_1.Schema({
         required: false,
         unique: true,
     },
+    userAddress: {
+        type: String,
+        required: false,
+    },
+    userPhone: {
+        type: String,
+        required: false,
+    },
+    userEmail: {
+        type: String,
+        required: false,
+    },
     facility: {
         type: mongoose_1.Schema.Types.ObjectId,
         ref: 'Facility',

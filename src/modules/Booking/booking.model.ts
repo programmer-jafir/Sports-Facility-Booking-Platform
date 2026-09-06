@@ -21,6 +21,18 @@ const bookingSchema = new Schema<TBooking>({
     required: false,
     unique:true,
   },
+  userAddress: {
+    type:String,
+    required:false,
+  },
+  userPhone: {
+    type:String,
+    required:false,
+  },
+  userEmail: {
+    type:String,
+    required:false,
+  },
   facility: {
     type: Schema.Types.ObjectId,
     ref: 'Facility',

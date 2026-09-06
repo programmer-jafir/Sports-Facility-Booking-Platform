@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookingControllers = void 0;
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const http_status_1 = __importDefault(require("http-status"));
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
@@ -26,6 +28,9 @@ const facility_model_1 = require("../Facility/facility.model");
 const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { facility, date, startTime, endTime } = req.body;
     const userId = req.user.id;
+    // const userPhone = req.user.phone;
+    // const userEmail = req.user.email;
+    // const userAddress = req.user.address;
     const facilityExists = yield facility_model_1.Facility.findById(facility);
     if (!facilityExists) {
         throw new AppError_1.default(http_status_1.default.NOT_FOUND, 'Facility not found');
@@ -48,10 +53,14 @@ const createBooking = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         startTime,
         endTime,
         user: userId,
+        // userPhone,
+        // userEmail,
+        // userAddress,
         payableAmount: req.body.Amount,
-        isBooked: 'confirmed',
+        isBooked: 'unconfirmed', //confirmed
     });
-    const result = yield booking_service_1.BookingServices.createBookingIntoDB(newBooking);
+    // const { newBooking: booking, paymentUrl } = await BookingServices.createBooking(newBooking);
+    const result = yield booking_service_1.BookingServices.createBooking(newBooking);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,

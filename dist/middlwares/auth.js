@@ -41,7 +41,7 @@ const auth = (...requiredRoles) => {
             }
             // decoded undefined
             req.user = decoded;
-            req.userId = decoded._id;
+            req.userId = decoded.id;
             next();
         });
     }));

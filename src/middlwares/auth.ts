@@ -37,7 +37,7 @@ const auth = (...requiredRoles : TUserRole[])=>{
     }
     // decoded undefined
     req.user = decoded as JwtPayload;
-    req.userId = (decoded as JwtPayload)._id;
+    req.userId = (decoded as JwtPayload).id as string;
   next();
   });
     });

@@ -188,7 +188,8 @@ Authorization: Bearer JWT_TOKEN
   "name": "Tennis Court",
   "description": "Outdoor tennis court with synthetic surface.",
   "pricePerHour": 30,
-  "location": "456 Sports Ave, Springfield"
+  "location": "456 Sports Ave, Springfield",
+  "img": "https://example.com/tennis-court.jpg"
 }
 ```
 

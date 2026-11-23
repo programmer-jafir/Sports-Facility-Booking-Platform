@@ -28,7 +28,9 @@ const createFacilityIntoDB = (payLoad) => __awaiter(void 0, void 0, void 0, func
 //     return result;
 // };
 const getAllFacilityIntoDB = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    const facilityQuery = new QueryBuilder_1.default(facility_model_1.Facility.find({ isDeleted: false }), query)
+    const facilityFilters = Object.assign({}, query);
+    delete facilityFilters.isDeleted;
+    const facilityQuery = new QueryBuilder_1.default(facility_model_1.Facility.find({ isDeleted: { $ne: true } }), facilityFilters)
         .search(facility_constant_1.FacilitySearchableFields)
         .filter()
         .sort()

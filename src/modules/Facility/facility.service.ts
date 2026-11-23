@@ -15,9 +15,12 @@ const createFacilityIntoDB = async (payLoad: TFacility) =>{
 //     return result;
 // };
 const getAllFacilityIntoDB = async (query: Record<string, unknown>) =>{
+  const facilityFilters = { ...query };
+  delete facilityFilters.isDeleted;
+
   const facilityQuery = new QueryBuilder(
-    Facility.find({ isDeleted: false }),
-    query,
+    Facility.find({ isDeleted: { $ne: true } }),
+    facilityFilters,
   )
     .search(FacilitySearchableFields) 
     .filter() 
